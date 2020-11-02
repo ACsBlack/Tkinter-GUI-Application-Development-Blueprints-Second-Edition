@@ -26,27 +26,26 @@ class PaintApplication(framework.Framework):
 
     start_x, start_y = 0, 0
     end_x, end_y = 0, 0
+    grid_spacing = 100
 
     def bind_mouse(self):
         self.canvas.bind("<Button-1>", self.on_mouse_button_pressed)
-        self.canvas.bind(
-            "<Button1-Motion>", self.on_mouse_button_pressed_motion)
-        self.canvas.bind(
-            "<Button1-ButtonRelease>", self.on_mouse_button_released)
+        self.canvas.bind("<Button1-Motion>", self.on_mouse_button_pressed_motion)
+        self.canvas.bind("<Button1-ButtonRelease>", self.on_mouse_button_released)
         self.canvas.bind("<Motion>", self.on_mouse_unpressed_motion)
 
     def on_mouse_button_pressed(self, event):
-        self.start_x = self.end_x = self.canvas.canvasx(event.x)
-        self.start_y = self.end_y = self.canvas.canvasy(event.y)
+        self.start_x = self.end_x = self.canvas.canvasx(event.x, gridspacing=self.grid_spacing) 
+        self.start_y = self.end_y = self.canvas.canvasy(event.y, gridspacing=self.grid_spacing)
         print("start_x, start_y = ", self.start_x, self.start_y)
 
     def on_mouse_button_pressed_motion(self, event):
-        self.end_x = self.canvas.canvasx(event.x)
-        self.end_y = self.canvas.canvasy(event.y)
+        self.end_x = self.canvas.canvasx(event.x, gridspacing=self.grid_spacing)
+        self.end_y = self.canvas.canvasy(event.y, gridspacing=self.grid_spacing)
 
     def on_mouse_button_released(self, event):
-        self.end_x = self.canvas.canvasx(event.x)
-        self.end_y = self.canvas.canvasy(event.y)
+        self.end_x = self.canvas.canvasx(event.x, gridspacing=self.grid_spacing)
+        self.end_y = self.canvas.canvasy(event.y, gridspacing=self.grid_spacing)
         print("end_x, end_y = ", self.end_x, self.end_y)
 
     def on_mouse_unpressed_motion(self, event):
